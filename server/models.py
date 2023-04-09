@@ -7,7 +7,7 @@ from scipy.integrate import odeint
 from math import pi, sqrt, atan2, exp
 
 
-def mc_sharry_ode_model(o, time):
+def mc_sharry_ode_model(iv, time):
     # Constants
     omega = 2*pi                            # frequency
     z0 = 0                                  # z0 paramter
@@ -18,9 +18,9 @@ def mc_sharry_ode_model(o, time):
     th = [-pi/3, -pi/12, 0, pi/12, pi/2]    # theta parameter
 
     # initial values for x,y,z
-    x = o[0]
-    y = o[1]
-    z = o[2]
+    x = iv[0]
+    y = iv[1]
+    z = iv[2]
 
     alpha = 1 - sqrt(x**2 + y**2)
     theta = atan2(y,x)

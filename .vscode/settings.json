@@ -8,5 +8,13 @@
   "python.formatting.provider": "black",
   "[python]": {
     "editor.tabSize": 4
+  },
+
+  "files.exclude": {
+    "**/node_modules": true
+  },
+
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }
