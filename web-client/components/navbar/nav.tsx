@@ -10,6 +10,7 @@ const Nav = () => {
       <div className="flex flex-1 flex-row items-center justify-center space-x-8">
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
+        <Link href="/signal">Signal</Link>
       </div>
     </div>
   );
