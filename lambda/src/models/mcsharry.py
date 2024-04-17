@@ -44,8 +44,10 @@ def solve(params=DEFAULT_PARAMS):
     iv = params["iv"]
     x = odeint(mc_sharry_ode_model, iv, t)
     z = x[:, 2]
+    print("z:\n", z)
 
     # plt.plot(t, z)
+    return zip(t, z)
 
 
 if __name__ == "__main__":

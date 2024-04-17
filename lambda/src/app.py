@@ -1,7 +1,5 @@
 import json
 
-# import requests
-
 
 def handler(event, context):
     return {
@@ -9,7 +7,6 @@ def handler(event, context):
         "body": json.dumps(
             {
                 "message": "hello world",
-                # "location": ip.text.replace("\n", "")
             }
         ),
     }
