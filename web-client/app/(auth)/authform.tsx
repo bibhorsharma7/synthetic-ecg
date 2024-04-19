@@ -1,9 +1,6 @@
-"use client";
-
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -14,25 +11,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const loginFormSchema = z.object({
+const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6, {
     message: "Password must be atleast 6 characters long",
   }),
 });
 
-export default function Login() {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+export default function AuthForm({
+  onSubmit,
+  children,
+}: {
+  onSubmit: (values: z.infer<typeof formSchema>) => void;
+  children: React.ReactNode;
+}) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
-
-  function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    console.log(values);
-  }
 
   return (
     <div className="flex h-full flex-col items-center p-8">
@@ -69,7 +68,7 @@ export default function Login() {
             )}
           />
 
-          <Button type="submit">Login</Button>
+          {children}
         </form>
       </Form>
     </div>
