@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from models import mcsharry
+
 app = FastAPI()
 
 @app.get("/")
@@ -37,5 +39,5 @@ class Parameters(BaseModel):
 @app.post("/solve")
 async def solve(parameters: Parameters):
     print('parameters:', parameters)
-    res, finalValues = ode.solve(parameters)
+    res, finalValues = mcsharry.solve(parameters)
     return {"graph": res, "finalValues": finalValues}

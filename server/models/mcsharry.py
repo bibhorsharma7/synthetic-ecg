@@ -1,9 +1,11 @@
-# Models
+# McSharry Model
 
 from math import atan2, exp, pi, sqrt
 
 import numpy as np
 from scipy.integrate import odeint
+
+from server.main import Parameters
 
 DEFAULT_PARAMS = {"time": 1, "iv": [-1, 0, 0]}
 
@@ -38,17 +40,19 @@ def mc_sharry_ode_model(iv, time):
     return [dxdt, dydt, dzdt]
 
 
-def solve(params=DEFAULT_PARAMS):
-    num = params["time"] * 500
-    t, steps = np.linspace(0, params["time"], num, retstep=True)
-    iv = params["iv"]
-    x = odeint(mc_sharry_ode_model, iv, t)
-    z = x[:, 2]
+def solve(params: Parameters):
+    num = params.time * 500
+    t, _ = np.linspace(0, params.time, num, retstep=True)
+
+    iv = [params.x, params.y, params.z]
+    # if second frequency is present add two more initial values
+    if params.rate2 != None:
+        iv += [params.x, params.y]
+
+    ode_response = odeint(mc_sharry_ode_model, iv, t)
+    z = ode_response[:, 2]
     print("z:\n", z)
 
     # plt.plot(t, z)
-    return zip(t, z)
-
-
-if __name__ == "__main__":
-    solve()
+    final_values = [ode_response[:,0][-1], ode_response[:,1][-1], ode_response[:,2][-1]]
+    return list(zip(t, z)), final_values
